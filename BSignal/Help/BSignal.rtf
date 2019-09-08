@@ -1,0 +1,610 @@
+{\rtf1\ansi\ansicpg1252\uc1 \deff0\deflang1033\deflangfe1033{\fonttbl{\f0\froman\fcharset0\fprq2{\*\panose 02020603050405020304}Times New Roman;}{\f1\fswiss\fcharset0\fprq2{\*\panose 020b0604020202020204}Arial;}
+{\f2\fmodern\fcharset0\fprq1{\*\panose 02070309020205020404}Courier New;}{\f16\froman\fcharset238\fprq2 Times New Roman CE;}{\f17\froman\fcharset204\fprq2 Times New Roman Cyr;}{\f19\froman\fcharset161\fprq2 Times New Roman Greek;}
+{\f20\froman\fcharset162\fprq2 Times New Roman Tur;}{\f21\froman\fcharset186\fprq2 Times New Roman Baltic;}{\f22\fswiss\fcharset238\fprq2 Arial CE;}{\f23\fswiss\fcharset204\fprq2 Arial Cyr;}{\f25\fswiss\fcharset161\fprq2 Arial Greek;}
+{\f26\fswiss\fcharset162\fprq2 Arial Tur;}{\f27\fswiss\fcharset186\fprq2 Arial Baltic;}{\f28\fmodern\fcharset238\fprq1 Courier New CE;}{\f29\fmodern\fcharset204\fprq1 Courier New Cyr;}{\f31\fmodern\fcharset161\fprq1 Courier New Greek;}
+{\f32\fmodern\fcharset162\fprq1 Courier New Tur;}{\f33\fmodern\fcharset186\fprq1 Courier New Baltic;}}{\colortbl;\red0\green0\blue0;\red0\green0\blue255;\red0\green255\blue255;\red0\green255\blue0;\red255\green0\blue255;\red255\green0\blue0;
+\red255\green255\blue0;\red255\green255\blue255;\red0\green0\blue128;\red0\green128\blue128;\red0\green128\blue0;\red128\green0\blue128;\red128\green0\blue0;\red128\green128\blue0;\red128\green128\blue128;\red192\green192\blue192;}{\stylesheet{
+\widctlpar\adjustright \lang1046\cgrid \snext0 Normal;}{\s1\sb240\sa60\keepn\widctlpar\adjustright \b\f1\fs28\lang1046\kerning28\cgrid \sbasedon0 \snext0 heading 1;}{\*\cs10 \additive Default Paragraph Font;}{\s15\widctlpar\adjustright \b\lang1046\cgrid 
+\sbasedon0 \snext15 Item;}{\s16\widctlpar\adjustright \f2\fs20\lang1046\cgrid \sbasedon0 \snext16 Plain Text;}{\s17\qj\widctlpar\adjustright \lang1046\cgrid \sbasedon0 \snext17 Body Text;}{\s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\sbasedon0 \snext18 Texto;}}{\info{\title BSignal}{\author Erico F. A. Lisboa}{\operator Erico F. A. Lisboa}{\creatim\yr2001\mo7\dy13\hr19\min1}{\revtim\yr2001\mo7\dy13\hr19\min38}{\version22}{\edmins36}{\nofpages6}{\nofwords1152}{\nofchars6570}
+{\*\company Erico Lisboa Pesq e Desenv.}{\nofcharsws8068}{\vern113}}\widowctrl\ftnbj\aenddoc\formshade\viewkind1\viewscale114\viewzk2\pgbrdrhead\pgbrdrfoot \fet0\sectd \linex0\endnhere\sectdefaultcl {\*\pnseclvl1\pnucrm\pnstart1\pnindent720\pnhang
+{\pntxta .}}{\*\pnseclvl2\pnucltr\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl3\pndec\pnstart1\pnindent720\pnhang{\pntxta .}}{\*\pnseclvl4\pnlcltr\pnstart1\pnindent720\pnhang{\pntxta )}}{\*\pnseclvl5\pndec\pnstart1\pnindent720\pnhang{\pntxtb (}
+{\pntxta )}}{\*\pnseclvl6\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl7\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl8\pnlcltr\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}{\*\pnseclvl9
+\pnlcrm\pnstart1\pnindent720\pnhang{\pntxtb (}{\pntxta )}}\pard\plain \s1\sb240\sa60\keepn\widctlpar\outlinelevel0\adjustright \b\f1\fs28\lang1046\kerning28\cgrid {BSignal
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Sum\'e1rio
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {Classe para trabalhar com processamento de sinais.
+\par 
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Descri\'e7\'e3o
+\par \pard\plain \s17\qj\widctlpar\adjustright \lang1046\cgrid Esta classe \'e9 utilizada para representar um sinal digital. Possui diversos formas de tratamento como convolu\'e7\'e3o, correla\'e7\'e3o, filtros, FFT, tratamento estat\'edstico, janelas e cria
+\'e7\'e3o de ondas predefinidas.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Interface
+\par \pard\plain \s16\widctlpar\adjustright \f2\fs20\lang1046\cgrid {\lang1024 class BSignal
+\par \{
+\par public:
+\par     //Constructors
+\par     BSignal(void);
+\par     BSignal(int nPoints);
+\par     BSignal(const BSignal& s);
+\par     BSignal(const BSignal& s, int count);
+\par     BSignal(const BSignal& s, int start, int lenght);
+\par     //Destructor
+\par     ~BSignal(void);
+\par     //Member operators
+\par     complex<double>& operator () (int index);
+\par     bool operator == (const BSignal& s);
+\par     BSignal& operator = (const BSignal& s);
+\par     BSignal& operator = (double d);
+\par     BSignal& operator += (const BSignal& s);
+\par     BSignal& operator += (double d);
+\par     BSignal& operator -= (const BSignal& s);
+\par     BSignal& operator -= (double d);
+\par     BSignal& operator *= (const BSignal& s);
+\par     BSignal& operator *= (double d);
+\par     BSignal& operator /= (double d);
+\par     //Non-member operators
+\par     friend BSignal operator + (const BSignal& s1, const BSignal& s2);
+\par     friend BSignal operator + (const BSignal& s, double d);
+\par     friend BSignal operator + (double d, const BSignal& s);
+\par     friend BSignal operator - (const BSignal& s1, const BSignal& s2);
+\par     friend BSignal operator - (const BSignal& s, double d);
+\par     friend BSignal operator - (double d, const BSignal& s);
+\par     friend BSignal operator * (const BSignal& s1, const BSignal& s2);
+\par     friend BSignal operator * (const BSignal& s, double d);
+\par     friend BSignal operator * (double d, const BSignal& s);
+\par     friend BSignal operator / (const BSignal& s, double d);
+\par     //---------------------------------------------------
+\par     //                                   Member functions
+\par     //---------------------------------------------------
+\par     int GetNumPoints(void) const;
+\par     void Set(float* pt);
+\par     void Set(double* pt);
+\par     void Set(complex<double>* pt);
+\par     void SetNumPoints(int n);
+\par     BSignal SubSignal(int start, int lenght) const;
+\par     //Statistic
+\par     complex<double> GeometricMean(void) const;
+\par     complex<double> HarmonicMean(void) const;
+\par     complex<double> Maximum(void) const;
+\par     complex<double> Mean(void) const;
+\par     complex<double> MeanPeak(int step) const;
+\par     complex<double> Median(void) const;
+\par     complex<double> Minimum(void) const;
+\par     complex<double> Moment(int order = 3) const;
+\par     void Normal(void);
+\par     complex<double> RMS(void) const;
+\par     complex<double> StdDev(void) const;
+\par     complex<double> Variance(void) const;
+\par     //Sort
+\par     BSignal& SortAscending(void);
+\par     BSignal& SortDescending(void);
+\par     //Frequency domain
+\par     BSignal& AutoPowerSpectrum(void);
+\par     BSignal& Cepstrum(void);
+\par     BSignal& FFT(void);
+\par     BSignal& InverseFFT(void);
+\par     //Others
+\par     BSignal& Decimate(int factor = 2, bool average = false);
+\par     //Windows
+\par     BSignal& BlackmanWindow(void);
+\par     BSignal& FlatTopWindow(void);
+\par     BSignal& HammingWindow(void);
+\par     BSignal& HanningWindow(void);
+\par     BSignal& KaiserWindow(double beta = 4.86);
+\par     //Waves
+\par     BSignal& ImpulseWave(double ampl, int index);
+\par     BSignal& PulseWave(double ampl, int delay, int width);
+\par     BSignal& RampWave(double ampl, double first, double last);
+\par     BSignal& SawtoothWave(double ampl, double freq, double phase);
+\par     BSignal& SquareWave(double ampl, double freq, double phase);
+\par     BSignal& SineWave(double ampl);
+\par     BSignal& SineWave(double ampl, double freq, double phase);
+\par     BSignal& TriangularWave(double ampl);
+\par     BSignal& TriangularWave(double ampl, double freq, double phase);
+\par     //---------------------------------------------------
+\par     //                               Non-member functions
+\par     //---------------------------------------------------
+\par     //Time domain
+\par     friend BSignal Convolve(const BSignal& s1, const BSignal& s2);
+\par     friend BSignal Correlate(const BSignal& s1, const BSignal& s2);
+\par     friend BSignal Deconvolve(const BSignal& s1, const BSignal& s2);
+\par     //Frequency domain
+\par     friend BSignal CrossPowerSpectrum(const BSignal& s1, const BSignal& s2);
+\par     friend BSignal CrossSpectrum(const BSignal& s1, const BSignal& s2);
+\par     friend BSignal FFT(const BSignal& s);
+\par     friend BSignal InverseFFT(const BSignal& s);
+\par \};
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Construtores
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 BSignal}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Cria um objeto contendo um sinal vazio.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 BSignal}{\lang1024 (int nPoints);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Cria um objeto contendo um sinal de tamanho definido. Os valores das amostras do sinal n\'e3o s\'e3o inicializados.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 BSignal}{\lang1024 (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Construtor de c\'f3pia. Cria um objeto id\'eantico ao sinal fornecido.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 BSignal}{\lang1024 (const BSignal& s, int count);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Cria um objeto contendo as 'count' primeiras amostras do sinal fornecido.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 BSignal}{\lang1024 (const BSignal& s, int start, int lenght);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Cria um objeto contendo uma parte do sinal fornecido, indo da amostra 'start' at\'e9 a amostra 'lenght'.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Destrutores
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\b\lang1024 ~BSignal}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Libera a mem\'f3ria utilizada pelo objeto.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Operadores membro
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double>& }{\b\lang1024 operator ()}{\lang1024  (int index);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna uma refer\'eancia para o index-\'e9simo elemento do sinal, come\'e7ando de zero.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 bool }{\b\lang1024 operator ==}{\lang1024  (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna {\b true} se um sinal for igual ao outro, ou seja, possui o mesmo tamanho, a mesma freq\'fc\'eancia de aquisi\'e7\'e3o e os mesmos elementos. Caso contr\'e1rio, retorna {\b false}.
+
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator = }{\lang1024 (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator =}{\lang1024  (double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator +=}{\lang1024  (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator +=}{\lang1024  (double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator -=}{\lang1024  (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator -=}{\lang1024  (double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator *=}{\lang1024  (const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator *=}{\lang1024  (double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 operator /=}{\lang1024  (double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Operadores n\'e3o-membro
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator + }{\lang1024 (const BSignal& s1, const BSignal& s2);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator + }{\lang1024 (const BSignal& s, double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator + }{\lang1024 (double d, const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator - }{\lang1024 (const BSignal& s1, const BSignal& s2);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator - }{\lang1024 (const BSignal& s, double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator - }{\lang1024 (double d, const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator * }{\lang1024 (const BSignal& s1, const BSignal& s2);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator * }{\lang1024 (const BSignal& s, double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator * }{\lang1024 (double d, const BSignal& s);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 operator / }{\lang1024 (const BSignal& s, double d);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid 
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Fun\'e7\'f5es membro
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 AutoPowerSpectrum}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 BlackmanWindow}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 Cepstrum}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 Decimate}{\lang1024 (int factor = 2, bool average = false);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 FFT}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Processa a transformada de Fourier no sinal, modificando-o. Para efetuar a transformada de Fourier num sinal sem transform\'e1-lo, utilize a fun\'e7\'e3o n\'e3o-membro FFT.
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 FlatTopWindow}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 GeometricMean}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna a m\'e9dia geom\'e9trica do sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 int }{\b\lang1024 GetNumPoints}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna o n\'famero de pontos do sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 HammingWindow}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 HanningWindow}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 HarmonicMean}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {Retorna a m\'e9dia }harm\'f4nica {do sinal.
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 ImpulseWave}{\lang1024 (double ampl, int index);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 InverseFFT}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {Processa a transformada }inversa {de Fourier no sinal, modificando-o. Para efetuar a transformada de Fourier num sinal sem transform\'e1-lo, utilize a fun\'e7\'e3o n\'e3o-membro }Inverse{
+FFT.
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 KaiserWindow}{\lang1024 (double beta = 4.86);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Aplica uma janela Kaiser no sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Maximum}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna o m\'e1ximo valor do sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Mean}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna a m\'e9dia aritm\'e9tica do sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 MeanPeak}{\lang1024 (int step) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Divide o sinal em conjuntos de 'step' elementos. O valor retornado \'e9 a m\'e9dia dos m\'e1ximos valores dos conjuntos. Esta fun\'e7\'e3o n\'e3o modifica o sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Median}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retorna a mediana do sinal.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Minimum}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {Retorna o m}\'edn{imo valor do sinal.
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Moment}{\lang1024 (int order = 3) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 void }{\b\lang1024 Normal}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 PulseWave}{\lang1024 (double ampl, int delay, int width);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Gera um onda de pulso. Todos os elementos s\'e3o nulos, exceto aqueles compreendidos entre 'delay' e 'delay + width', que passar\'e3o a ter o valor de 'ampl'.{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 RampWave}{\lang1024 (double ampl, double first, double last);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 RMS}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid Retona o valor RMS do sinal. \'c9 calculado como 
+\par \pard \s18\qj\li1134\widctlpar\adjustright {{\*\shppict{\pict{\*\picprop\shplid1053{\sp{\sn shapeType}{\sv 75}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}{\sp{\sn fillColor}{\sv 268435473}}{\sp{\sn fFilled}{\sv 0}}{\sp{\sn fLine}{\sv 0}}}
+\picscalex86\picscaley86\piccropl0\piccropr0\piccropt0\piccropb0\picw3440\pich1402\picwgoal1950\pichgoal795\pngblip\bliptag-1448861845{\*\blipuid a9a41f6beab2d4c286200b3a7697c5fe}
+89504e470d0a1a0a0000000d494844520000008200000035080200000002aea4670000000467414d410000b1889598f4a6000000097048597300000ec400000e
+c401952b0e1b0000023c49444154789ced99dd92e5200884716bdfff953317a97528838a3f890dcb7775664e8e31360d4ad2755d149ce6cfe909044421030821
+03047f4f4fe015524aa7a7a02217669f32107b4213445282206480206480c0a10c29a5a230a494c08bb6db127d03befa19876ee05cd76562cbe45c062b840c10
+38af0d4ae64ac8c674176e8020dc40f42fae6f4f68627cfb062cdc008137373ccf6e7af49e98b8453690f85b6f3260c283430c14e732f024ae4cfda375424377
+1ce7329838421397a156fdf993f06b6a4f285ec333e34afafe8c373c41f5d2f52b8378e3bb3799ffe4d788238a85888f69a5d7f6068df8eb6c58d7d7aed015df
+079cbb33b8a54f9e3510879a3c3788239ac83647c8f9a326e74725fa99d9c46bc4ff9b90f699cc6924077464183adf8b97dda6d60cb5bedc07ed9873d7dc0464
+19da47bed11b1785bd3dec2ebad95cdf3b52ce36075cf159832cc31bbb9aee2e6b2f6753d9e803f69392c610d4ccf8fcab469840d58615d74e04594b86c57c37
+cad05d3e4b6edfb07a6eb82f682fc74463e72039f23eb302d59a197cb1c4f38bb89aed11f2575b7644f9039aa293e2a13d86925ad764e57146dfbe3da370faee
+56dfbe89ed2ca32145ee1bdd4a9ee974e8b7eb6d63ab6ec820b46cd78d186e205adb356cc98486dda0aca57c5bb5a565fd068665d050bc8887ade11e64680478
+513f6177531e646803bbf41cdb3268d6175f03b22e43c644c83770228348a14dae1307a754c3b30c4f604d033aad21f09be75dfe2f37c0e2c10d0e083740103240103240f00366ba8689c2018a890000000049454e44ae426082}}{\nonshppict
+{\pict\picscalex87\picscaley86\piccropl0\piccropr0\piccropt0\piccropb0\picw3440\pich1402\picwgoal1950\pichgoal795\wmetafile8\bliptag-1448861845\blipupi96{\*\blipuid a9a41f6beab2d4c286200b3a7697c5fe}
+010009000003d82800000000b628000000000400000003010800050000000b0200000000050000000c02350082000400000007010400b6280000430f2000cc00
+000035008200000000003500820000000000280000008200000035000000010018000000000000000000c40e0000c40e00000000000000000000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffffffffffffffffff
+ffffffffff000000ffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffff
+ffffffffffffffffffffffffff000000ffffffffffffffffffffffff000000ffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000
+000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffff000000000000ffffff000000ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffff000000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffff000000000000000000ffffff000000ffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffff000000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffff000000000000000000ffffff000000ffffffffffffffffffffffffffffffffffff000000ffffff000000ffffffffffff00
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffff
+ff000000ffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffff000000ffffffffffffffffffffffffffffffffffff
+000000000000ffffffffffff000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffff000000ffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffff000000ffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffff000000000000ffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffff
+ffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffff000000ffff
+ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000
+0000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffff
+ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ff000000000000000000ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00
+0000000000ffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffff000000000000000000000000000000000000ffffffffffffffffff00000000000000000000
+0000000000000000000000000000ffffffffffff000000ffffffffffff000000000000000000000000000000000000ffffff000000ffffff0000000000000000
+00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffff000000000000000000000000ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffff0000000000
+00ffffffffffffffffffffffff000000ffffffffffffffffffffffff000000ffffffffffffffffffffffff000000000000ffffffffffffffffff000000000000
+ffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffff
+000000000000ffffffffffffffffffffffffffffff000000ffffffffffffffffff000000000000000000ffffffffffffffffff000000000000ffffffffffffff
+ffff000000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffff000000ffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ff
+ffffffffff000000000000ffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000000000000000ffffffffffffffffff0000000000
+00ffffffffffffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffff000000000000000000000000
+000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffff000000
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ff000000000000ffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffff000000000000ffffffffffff000000ffffff
+ffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000
+00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00
+0000ffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffff000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffff000000ffffffffffff000000000000ffffffff
+ffff000000ffffffffffff000000000000ffffffffffffffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffff000000ffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffff000000000000ffffffffffffffffffffffffffffff000000ffffff0000000000
+00ffffffffffffffffff000000ffffffffffff000000000000ffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffff000000000000ffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffff000000000000ffffffffffffffffffffffff000000
+ffffff000000000000ffffffffffffffffffffffff000000ffffff000000000000ffffffffffffffffff000000000000000000ffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffff000000000000ffffffffffffff
+ffffffffff000000ffffff000000000000ffffffffffffffffffffffff000000ffffff000000000000ffffffffffffffffff000000000000ffffffffffffffff
+ffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000
+000000000000ffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffff0000000000
+00ffffffffffffffffffffffff000000000000000000ffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffffffffff000000000000
+ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000
+000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffff000000ffffffffffff000000ffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffff
+000000000000ffffffffffffffffffffffffffffff000000000000000000ffffffffffffffffffffffffffffffffffff000000000000000000ffffffffffffff
+ffffffffff000000000000ffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00
+0000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffff00000000000000000000000000
+0000000000000000000000ffffffffffffffffffffffff000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffff0000000000
+00000000000000ffffffffffffffffff000000000000000000ffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffff000000ffffffffffffffffffffffff000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000ffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000ffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff0000
+00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff
+ffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ff
+ffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffff000000000000000000000000ffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffffff000000000000ffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffff000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffff
+0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffff0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000400000007010100030000000000}}}
+\par onde:
+\par \pard \s18\qj\fi306\li1134\widctlpar\adjustright {\i n }\'e9 o n\'famero de amostras;
+\par {\i y}{\i\sub i} \'e9 o valor da amostra {\i i}{
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SawtoothWave}{\lang1024 (double ampl, double freq, double phase);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 void }{\b\lang1024 Set}{\lang1024 (float* pt);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 void }{\b\lang1024 Set}{\lang1024 (double* pt);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 void }{\b\lang1024 Set}{\lang1024 (complex<double>* pt);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 void }{\b\lang1024 SetNumPoints}{\lang1024 (int n);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SineWave}{\lang1024 (double ampl);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SineWave}{\lang1024 (double ampl, double freq, double phase);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SortAscending}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SortDescending}{\lang1024 (void);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 SquareWave}{\lang1024 (double ampl, double freq, double phase);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 StdDev}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal }{\b\lang1024 SubSignal}{\lang1024 (int start, int lenght) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 TriangularWave}{\lang1024 (double ampl);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 BSignal& }{\b\lang1024 TriangularWave}{\lang1024 (double ampl, double freq, double phase);
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {\lang1024 complex<double> }{\b\lang1024 Variance}{\lang1024 (void) const;
+\par }\pard\plain \s18\qj\li567\widctlpar\adjustright \lang1024\cgrid {
+\par }\pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Fun\'e7\'f5es n\'e3o-membro
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par 
+\par }\pard\plain \s15\widctlpar\adjustright \b\lang1046\cgrid Exemplo
+\par \pard\plain \widctlpar\adjustright \lang1046\cgrid {
+\par }}
