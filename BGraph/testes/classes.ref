@@ -1,0 +1,26 @@
+Rio de Janeiro
+  600 - de Belo Horizonte
+  1600 - de Porto Alegre
+  400 - de Sao Paulo
+Belo Horizonte
+  600 - para Rio de Janeiro
+  2000 - para Porto Alegre
+  2002 - de Porto Alegre
+Porto Alegre
+  1600 - para Rio de Janeiro
+  2002 - para Belo Horizonte
+  2000 - de Belo Horizonte
+  1200 - de Sao Paulo
+Sao Paulo
+  400 - para Rio de Janeiro
+  1200 - para Porto Alegre
+
+Rio de Janeiro
+400
+Belo Horizonte
+  2000 - para Porto Alegre
+  2002 - de Porto Alegre
+Porto Alegre
+  2002 - para Belo Horizonte
+  2000 - de Belo Horizonte
+

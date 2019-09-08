@@ -1,0 +1,7 @@
+USEUNIT("Unit1.cpp");
+USEUNIT("..\..\fonte\BExcecao\BExcecao.cpp");
+USEUNIT("Cidade.cpp");
+//---------------------------------------------------------------------------
+This file is used by the project manager only and should be treated like the project file
+
+main
